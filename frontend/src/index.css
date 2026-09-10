@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-space-deep text-slate-100 overflow-hidden h-screen w-screen select-none font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display font-bold tracking-[0.1em] text-white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+  }
+}
+
+@layer utilities {
+  /* Custom Scrollbar for Letter scroll overlay */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Glassmorphism helpers */
+  .bg-space-card {
+    background: rgba(15, 10, 25, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .border-space-border {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Text gradient clip styling */
+  .text-glow {
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  }
+}
+
+/* Modal animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
