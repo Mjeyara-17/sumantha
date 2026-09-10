@@ -601,19 +601,16 @@ export default function App() {
                       </div>
 
                       {letterFinished && (
-                        <div className="mt-6 pt-4 border-t border-purple-500/20 flex justify-between items-center">
+                        <div className="mt-6 pt-4 border-t border-purple-500/20 flex flex-col justify-center items-center gap-3">
                           <button
-                            onClick={() => setShowSeriousWeddingMessage(true)}
-                            className="py-2.5 px-4 rounded-xl bg-purple-900/40 border border-purple-400/30 text-xs font-semibold text-purple-200 hover:bg-purple-900/60 cursor-pointer"
+                            onClick={() => {
+                              sounds.playSparkle();
+                              setShowSeriousWeddingMessage(true);
+                            }}
+                            className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 hover:from-purple-500 hover:to-amber-400 text-white font-bold text-sm sm:text-base shadow-xl shadow-purple-600/30 flex items-center justify-center space-x-2 cursor-pointer hover:scale-[1.02] animate-pulse"
                           >
-                            One Important Thing For You ❤️
-                          </button>
-                          <button
-                            onClick={() => setLetterSubStep('runaway_no')}
-                            className="py-3 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 text-white font-bold text-sm shadow-lg shadow-purple-500/30 flex items-center space-x-2 cursor-pointer hover:scale-[1.01]"
-                          >
-                            <span>Continue</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <span>One Important Thing Sollanum ❤️ →</span>
+                            <ArrowRight className="w-5 h-5" />
                           </button>
                         </div>
                       )}
