@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Sparkles, ArrowRight, ArrowLeft } from 'lucide-react';
 import { sounds } from '../utils/soundEffects';
 import SafeImage from './SafeImage';
 
@@ -12,7 +12,7 @@ export default function SeriousWeddingMessage({
   onProceedToFinale,
   backgroundPhotoSrc = '/images/sumantha/photo-18.jpg'
 }: SeriousWeddingMessageProps) {
-  // Screens: 0 (Transition Intro), 1 (Title Reveal), 2..7 (Paragraphs), 8 (Climax 2 lines), 9 (Final Personal Line), 10 (Ready for Finale)
+  // Screens: 0 (Transition Intro), 1 (Title Reveal), 2..6 (Paragraphs 1-5), 7 (Climax 2 lines), 8 (Final Personal Line), 9 (Ready for Finale)
   const [currentScreen, setCurrentScreen] = useState<number>(0);
   const [transitionStep, setTransitionStep] = useState(0);
 
@@ -20,33 +20,26 @@ export default function SeriousWeddingMessage({
   useEffect(() => {
     if (currentScreen === 0) {
       const t1 = setTimeout(() => setTransitionStep(1), 1000);
-      const t2 = setTimeout(() => setTransitionStep(2), 2600);
-      const t3 = setTimeout(() => setTransitionStep(3), 4400);
+      const t2 = setTimeout(() => setTransitionStep(2), 2400);
+      const t3 = setTimeout(() => setTransitionStep(3), 4000);
+      const t4 = setTimeout(() => setTransitionStep(4), 5800);
       return () => {
         clearTimeout(t1);
         clearTimeout(t2);
         clearTimeout(t3);
+        clearTimeout(t4);
       };
     }
   }, [currentScreen]);
 
-  const floatingTraits = [
-    { text: "SMILE ✨", x: -140, y: -90, color: "text-amber-200" },
-    { text: "CRAZY 😂", x: 130, y: -80, color: "text-rose-300" },
-    { text: "FOOD 🍜", x: -150, y: 70, color: "text-emerald-300" },
-    { text: "DREAMS ✨", x: 140, y: 80, color: "text-purple-300" },
-    { text: "CHAOS 🔥", x: -110, y: 140, color: "text-yellow-300" },
-    { text: "CARING ❤️", x: 110, y: 140, color: "text-pink-300" }
-  ];
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#040208] text-white select-none overflow-hidden animate-fade-in font-sans">
       {/* Background Soft Warm Lighting & Ambient Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(49,20,70,0.5)_0%,rgba(4,2,8,0.98)_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(49,20,70,0.4)_0%,rgba(4,2,8,0.98)_100%)] pointer-events-none" />
 
       {/* Subtle Background Photo with Warm Soft Blur */}
       {currentScreen >= 2 && currentScreen <= 8 && (
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-15 filter blur-sm transition-opacity duration-1000">
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden opacity-10 filter blur-md transition-opacity duration-1000">
           <SafeImage
             src={backgroundPhotoSrc}
             alt="Sumantha Ambient"
@@ -57,49 +50,57 @@ export default function SeriousWeddingMessage({
         </div>
       )}
 
-      {/* Subtle Star Particles */}
-      <div className="absolute inset-0 bg-[radial-gradient(#a855f720_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+      {/* Subtle Warm Star Particles */}
+      <div className="absolute inset-0 bg-[radial-gradient(#f59e0b15_1px,transparent_1px)] [background-size:28px_28px] pointer-events-none" />
 
       {/* Main Narrative Card */}
-      <div className="relative max-w-2xl w-full min-h-[500px] bg-slate-950/85 backdrop-blur-2xl border border-purple-500/20 rounded-3xl p-6 sm:p-12 shadow-2xl flex flex-col justify-between items-center text-center">
+      <div className="relative max-w-2xl w-full min-h-[520px] bg-slate-950/90 backdrop-blur-2xl border border-purple-500/20 rounded-3xl p-6 sm:p-12 shadow-2xl flex flex-col justify-between items-center text-center">
         
         {/* SCREEN 0: COMEDY TO SERIOUS MOMENT TRANSITION */}
         {currentScreen === 0 && (
-          <div className="my-auto space-y-6 py-6 animate-fade-in">
-            <p className="text-xs sm:text-sm font-mono text-purple-300 tracking-wider">
-              Seri seri... Wedding jokes ellam pothum 😂
+          <div className="my-auto space-y-5 py-6 animate-fade-in">
+            <p className="text-sm font-mono text-purple-300 tracking-wider">
+              "Seri..."
+            </p>
+            <p className="text-base sm:text-lg font-bold text-slate-200">
+              "Wedding jokes ellam oru pakkam 😂"
             </p>
 
             {transitionStep >= 1 && (
-              <h3 className="text-xl sm:text-2xl font-display font-medium text-slate-200 animate-fade-in">
-                One important thing sollanum...
-              </h3>
+              <div className="space-y-1 animate-fade-in">
+                <p className="text-xs font-mono text-slate-400">But...</p>
+                <h3 className="text-xl sm:text-2xl font-display font-black text-amber-300">
+                  "ONE IMPORTANT THING SOLLANUM."
+                </h3>
+              </div>
             )}
 
             {transitionStep >= 2 && (
-              <p className="text-sm sm:text-base font-bold text-amber-300 animate-fade-in">
-                Indha part joke illa.
+              <p className="text-sm sm:text-base font-bold text-pink-400 animate-fade-in tracking-wide">
+                "INDHA PART JOKE ILLA."
               </p>
             )}
 
             {transitionStep >= 3 && (
               <div className="space-y-2 pt-2 animate-fade-in text-xs sm:text-sm text-slate-300 leading-relaxed">
-                <p>Because I know... Future pathi nee sometimes konjam overthink pannuva.</p>
-                <p className="text-pink-300 font-semibold text-sm sm:text-base">
-                  Especially... Wedding life pathi. ❤️
+                <p>"Because I know..."</p>
+                <p>"Future pathi nee konjam overthink pannuva..."</p>
+                <p className="text-purple-300">"Especially..."</p>
+                <p className="text-pink-300 font-bold text-base sm:text-lg">
+                  "WEDDING LIFE PATHI. ❤️"
                 </p>
               </div>
             )}
 
-            {transitionStep >= 3 && (
+            {transitionStep >= 4 && (
               <button
                 onClick={() => {
                   sounds.playSparkle();
                   setCurrentScreen(1);
                 }}
-                className="mt-6 py-3.5 px-8 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center space-x-2 mx-auto animate-fade-in"
+                className="mt-6 py-3.5 px-8 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-purple-600/30 transition-all flex items-center justify-center space-x-2 mx-auto animate-fade-in cursor-pointer hover:scale-105"
               >
-                <span>Read This From My Heart</span>
+                <span>Read This From My Heart ❤️</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             )}
@@ -123,7 +124,7 @@ export default function SeriousWeddingMessage({
 
             <button
               onClick={() => setCurrentScreen(2)}
-              className="py-3.5 px-8 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center space-x-2 mx-auto"
+              className="py-3.5 px-8 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-400 hover:to-purple-500 text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center space-x-2 mx-auto cursor-pointer"
             >
               <span>Begin ❤️</span>
               <ArrowRight className="w-4 h-4" />
@@ -191,35 +192,20 @@ export default function SeriousWeddingMessage({
           </div>
         )}
 
-        {/* SCREEN 6: DON'T LOSE WHO YOU ARE + FLOATING WORDS */}
+        {/* SCREEN 6: DON'T LOSE WHO YOU ARE */}
         {currentScreen === 6 && (
           <div className="my-auto space-y-6 py-4 animate-fade-in text-center max-w-xl relative">
-            {/* Floating trait badges */}
-            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-              {floatingTraits.map((t, idx) => (
-                <div
-                  key={idx}
-                  className={`absolute px-3 py-1 rounded-full bg-slate-900/90 border border-white/20 text-xs font-mono ${t.color} shadow-lg animate-pulse`}
-                  style={{
-                    transform: `translate(${t.x}px, ${t.y}px)`
-                  }}
-                >
-                  {t.text}
-                </div>
-              ))}
-            </div>
-
             <p className="text-xs sm:text-sm text-slate-400 uppercase tracking-widest font-mono">
               AND WHATEVER CHANGES IN LIFE…
             </p>
 
-            <h3 className="text-base sm:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-300 to-purple-200 leading-relaxed p-4 bg-slate-950/80 rounded-2xl border border-purple-500/30 z-10 relative">
-              "Don't lose the Sumantha we know — the smile, the craziness, the food love 😂, the dreams, and that little bit of chaos that makes you YOU. ❤️"
+            <h3 className="text-base sm:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-300 to-purple-200 leading-relaxed p-6 bg-slate-950/80 rounded-2xl border border-purple-500/30">
+              "don't lose the Sumantha we know — the smile, the craziness, the food love 😂, the dreams, and that little bit of chaos that makes you YOU. ❤️"
             </h3>
           </div>
         )}
 
-        {/* SCREEN 7: THE TWO CLIMAX LINES */}
+        {/* SCREEN 7: THE TWO CLIMAX LINES (DARKENED SCENE) */}
         {currentScreen === 7 && (
           <div className="my-auto space-y-8 py-10 animate-fade-in text-center max-w-lg">
             <div className="space-y-4">
@@ -238,24 +224,23 @@ export default function SeriousWeddingMessage({
           </div>
         )}
 
-        {/* SCREEN 8: FINAL PERSONAL LINE & PLAYFUL CALLBACK */}
+        {/* SCREEN 8: FINAL PERSONAL LINE & HOPE */}
         {currentScreen === 8 && (
-          <div className="my-auto space-y-5 py-6 animate-fade-in text-center max-w-lg">
+          <div className="my-auto space-y-6 py-6 animate-fade-in text-center max-w-lg">
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Future epdi irukkum nu namakku ippo theriyathu... But one thing:
+              "Future epdi irukkum nu namakku ippo theriyathu..."
             </p>
 
-            <div className="p-4 bg-gradient-to-r from-purple-950/80 to-pink-950/80 rounded-2xl border border-purple-400/40 shadow-xl">
-              <h4 className="text-lg sm:text-xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-amber-300 mb-1">
-                "Bayathoda illa... Hope-oda face pannu. ❤️"
-              </h4>
-              <p className="text-xs text-purple-200 mt-2">
-                Nee happy-ah irukkanum. Adhu than important.
-              </p>
-            </div>
+            <p className="text-xs font-mono text-purple-300">"But one thing..."</p>
 
-            <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-700/60 text-xs text-amber-300 font-mono">
-              And yes... Korean mappillai matter-ku... System already working on it 😂🇰🇷
+            <div className="p-5 bg-gradient-to-r from-purple-950/90 to-pink-950/90 rounded-2xl border border-purple-400/40 shadow-xl space-y-2">
+              <h4 className="text-xl sm:text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-300 to-amber-300">
+                "BAYATHODA ILLA...<br />HOPE-ODA FACE PANNU. ❤️"
+              </h4>
+              <div className="pt-2 border-t border-purple-500/20 text-sm text-purple-200 font-medium">
+                <p>"Nee happy-ah irukkanum."</p>
+                <p className="text-amber-300 font-bold">"Adhu than important."</p>
+              </div>
             </div>
           </div>
         )}
@@ -280,7 +265,7 @@ export default function SeriousWeddingMessage({
                 sounds.playCelebrate();
                 onProceedToFinale();
               }}
-              className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center space-x-2 animate-bounce mx-auto"
+              className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-pink-500 to-purple-600 hover:from-amber-400 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-purple-600/30 transition-all flex items-center justify-center space-x-2 animate-bounce mx-auto cursor-pointer"
             >
               <span>I'M READY FOR THE FINALE →</span>
               <Sparkles className="w-4 h-4 text-amber-300" />
@@ -294,7 +279,7 @@ export default function SeriousWeddingMessage({
             <button
               disabled={currentScreen <= 2}
               onClick={() => setCurrentScreen(s => Math.max(2, s - 1))}
-              className="px-4 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 disabled:opacity-30 flex items-center space-x-1"
+              className="px-4 py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700 disabled:opacity-30 flex items-center space-x-1 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Previous</span>
@@ -309,7 +294,7 @@ export default function SeriousWeddingMessage({
                 sounds.playClick();
                 setCurrentScreen(s => s + 1);
               }}
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold shadow-md flex items-center space-x-1"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold shadow-md flex items-center space-x-1 cursor-pointer hover:scale-105 transition-all"
             >
               <span>{currentScreen === 8 ? "Finish" : "Next"}</span>
               <ArrowRight className="w-3.5 h-3.5" />

@@ -35,12 +35,12 @@ import Photo21BirthdayHero from './components/Photo21BirthdayHero';
 import Photo22SecretEnding from './components/Photo22SecretEnding';
 import HeartConstellation3D from './components/HeartConstellation3D';
 
-// Upgraded Experience Components
 import MidnightUnlockModal from './components/MidnightUnlockModal';
 import FriendshipScoreModal from './components/FriendshipScoreModal';
 import FakeGiftModal from './components/FakeGiftModal';
 import MakeAWishModal from './components/MakeAWishModal';
 import ResumeSessionModal from './components/ResumeSessionModal';
+import FriendshipQuiz from './components/FriendshipQuiz';
 
 import { photoMemories } from './data/photoMemories';
 import { friendshipTimeline } from './data/timeline';
@@ -69,8 +69,8 @@ export default function App() {
     dismissResumeDialog
   } = useProgressSave();
 
-  // Core Phase Gates: 'LOADING' | 'LOCKED' | 'MIDNIGHT_UNLOCK' | 'STARTING_QUESTION' | 'MYSTERY_01' | 'UNLOCKED_HUB'
-  const [appPhase, setAppPhase] = useState<'LOADING' | 'LOCKED' | 'MIDNIGHT_UNLOCK' | 'STARTING_QUESTION' | 'MYSTERY_01' | 'UNLOCKED_HUB'>('LOADING');
+  // Core Phase Gates: 'LOADING' | 'LOCKED' | 'MIDNIGHT_UNLOCK' | 'STARTING_QUESTION' | 'FRIENDSHIP_QUIZ' | 'MYSTERY_01' | 'UNLOCKED_HUB'
+  const [appPhase, setAppPhase] = useState<'LOADING' | 'LOCKED' | 'MIDNIGHT_UNLOCK' | 'STARTING_QUESTION' | 'FRIENDSHIP_QUIZ' | 'MYSTERY_01' | 'UNLOCKED_HUB'>('LOADING');
   const [isBypassed, setIsBypassed] = useState(false);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [webglSupported, setWebglSupported] = useState(true);
@@ -258,6 +258,17 @@ export default function App() {
         <StartingShortQuestion
           onComplete={() => {
             unlockAchievement('short-queen');
+            setAppPhase('FRIENDSHIP_QUIZ');
+          }}
+        />
+      )}
+
+      {/* 3.5. FRIENDSHIP CHECK 6-QUESTION INVESTIGATION */}
+      {appPhase === 'FRIENDSHIP_QUIZ' && (
+        <FriendshipQuiz
+          onUnlockAchievement={unlockAchievement}
+          onComplete={() => {
+            sounds.playSparkle();
             setAppPhase('MYSTERY_01');
           }}
         />
