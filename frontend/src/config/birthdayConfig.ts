@@ -12,8 +12,8 @@ export const birthdayConfig = {
   timezone: "Europe/Paris",
 
   // Developer Bypass Toggle:
-  // When true, displays an immediate "Bypass Lock" trigger button on the lockscreen for testing.
-  testMode: true,
+  // Set to false for real production so Sumantha sees only the locked countdown until Sept 11
+  testMode: false,
 
   // Feature Toggles
   enableKoreanMarriageChapter: true,

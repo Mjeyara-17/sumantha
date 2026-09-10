@@ -14,6 +14,7 @@ interface LockedScreenProps {
 export default function LockedScreen({ countdown, onBypass, onUnlock }: LockedScreenProps) {
   const padZero = (num: number) => num.toString().padStart(2, '0');
   const [introStep, setIntroStep] = useState(0);
+  const [secretTapCount, setSecretTapCount] = useState(0);
 
   // Staggered cinematic text sequence
   useEffect(() => {
@@ -53,8 +54,18 @@ export default function LockedScreen({ countdown, onBypass, onUnlock }: LockedSc
 
       {/* CENTER: Vault Card & Teasing Story */}
       <div className="relative z-10 flex flex-col items-center text-center my-auto max-w-2xl animate-fade-in">
-        {/* Glowing lock badge */}
-        <div className="relative flex justify-center items-center w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-amber-400/30 bg-white/[0.03] backdrop-blur-xl shadow-[0_0_40px_rgba(245,158,11,0.2)] mb-6 animate-pulse">
+        {/* Glowing lock badge (Tap 5 times secretly to preview) */}
+        <div 
+          onClick={() => {
+            const newCount = secretTapCount + 1;
+            setSecretTapCount(newCount);
+            if (newCount >= 5) {
+              sounds.playSparkle();
+              onBypass();
+            }
+          }}
+          className="relative flex justify-center items-center w-20 h-20 sm:w-24 sm:h-24 rounded-full border border-amber-400/30 bg-white/[0.03] backdrop-blur-xl shadow-[0_0_40px_rgba(245,158,11,0.2)] mb-6 animate-pulse cursor-pointer"
+        >
           <div className="absolute inset-0 rounded-full bg-amber-500/15 blur-lg" />
           <Lock className="w-8 h-8 sm:w-10 sm:h-10 text-amber-400 drop-shadow-[0_0_10px_rgba(245,158,11,0.5)]" />
         </div>
